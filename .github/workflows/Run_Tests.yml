@@ -1,38 +1,42 @@
 name: Run Tests
 
 on:
-    push:
+  push:
     branches:
-        - main
-    pull_request:
+      - main
+  pull_request:
     branches:
-        - main
+      - main
 
 jobs:
-    test:
+  test:
     runs-on: ubuntu-latest
     steps:
-        - name: Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
-        
-        - name: Clone Google Tests
-        run: |
-            git submodule init && git submodule update
 
-        - name: Setup CMake
+      - name: Clone Google Tests
         run: |
-            cmake -S . -B build
+          git submodule init && git submodule update
 
-        - name: Run Build
+      - name: Setup CMake
         run: |
-            cmake --build build
+          cmake -S . -B build
 
-        - name: Run Tests
+      - name: Run Build
         run: |
-            export CTEST_OUTPUT_ON_FAILURE=TRUE && cmake --build build --target test || true 
+          cmake --build build
 
-        - name: Upload Test Results
+      - name: Run Tests
+        run: |
+          export CTEST_OUTPUT_ON_FAILURE=TRUE && cmake --build build --target test || true 
+
+      - name: Upload Test Results
         uses: actions/upload-artifact@v4
         with:
-            name: test-results
-            path: build/Testing/Temporary/LastTest.log 
+          name: test-results
+          path: build/Testing/Temporary/LastTest.log
+
+
+
+  
