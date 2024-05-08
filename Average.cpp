@@ -4,7 +4,7 @@
 using namespace std;
 
 double Average(const std::vector<double>& v){
-    if (static_cast<int>(v.size()) == 0) {
+    if (v.empty()) {
         return 0;
     }
     double sum = 0;

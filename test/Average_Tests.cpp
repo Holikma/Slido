@@ -29,7 +29,7 @@ void Test_File(const std::string& file_name) {
         v = Load_Line_To_Vector(line);
         getline(file, answer);
         double expected = std::stod(answer);
-        EXPECT_EQ(Average(v), expected);
+        EXPECT_DOUBLE_EQ(average(v), expected);
         v.clear();
     }
 }
